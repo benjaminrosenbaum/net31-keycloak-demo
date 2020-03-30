@@ -2,12 +2,10 @@ version: '3'
 
 services:
   reverse:
-    container_name: reverse
-    hostname: reverse
-    image: nginx
+    build: .
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - ./config:/etc/nginx
-      - ./certs:/etc/ssl/private
+      - 5000:5000
+      - 26060:26060
+    
