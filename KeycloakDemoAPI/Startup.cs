@@ -59,10 +59,10 @@ namespace KeycloakDemoAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(
-                options => options.WithOrigins("http://keycloak-demo.ngrok.io/").AllowAnyMethod()
+            app.UseCors("AllowAll"
+                // options => options.WithOrigins("http://keycloak-demo.ngrok.io/").AllowAnyMethod()
                 // options.AllowAnyOrigin().AllowAnyMethod()
-                    .AllowAnyHeader().AllowCredentials()
+                //    .AllowAnyHeader().AllowCredentials()
             );
             
             if (env.IsDevelopment())
@@ -70,7 +70,7 @@ namespace KeycloakDemoAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
