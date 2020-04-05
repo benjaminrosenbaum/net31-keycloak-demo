@@ -19,7 +19,7 @@ export class FetchData31Component implements OnInit {
             "Authorization": "Bearer " + this.oauthService.getAccessToken()
         });
 
-        this.http.get('http://keycloak-demo-api.ngrok.io/WeatherForecast',
+        this.http.get('https://keycloak-demo-api.ngrok.io/WeatherForecast',
             //'http://localhost:26060/WeatherForecast',
             { headers: headers })
             .subscribe(result => {

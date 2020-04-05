@@ -19,4 +19,5 @@ REM to open a shell to the reverse proxy docker: docker exec -it reverse_reverse
 
 cd ..
 
+ "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --auth-server-whitelist="keycloak-demo.virtualcorp.ch http://keycloak-demo.ngrok.io"
 

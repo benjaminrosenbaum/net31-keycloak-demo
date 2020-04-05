@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -59,10 +60,15 @@ namespace KeycloakDemoAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("AllowAll"
-                // options => options.WithOrigins("http://keycloak-demo.ngrok.io/").AllowAnyMethod()
+            // app.UseMiddleware<CorsInspectionMiddleware>();
+            app.UseCors(//"AllowAll"
+                options => options.WithOrigins("http://keycloak-demo.ngrok.io",
+                    "https://keycloak-demo.ngrok.io", "http://localhost:5000",
+                    "https://keycloak-demo-ui.ngrok.io", "http://keycloak-demo-ui.ngrok.io",
+                    "https://keycloak-demo-api.ngrok.io", "http://keycloak-demo-api.ngrok.io").AllowAnyMethod()
                 // options.AllowAnyOrigin().AllowAnyMethod()
-                //    .AllowAnyHeader().AllowCredentials()
+                .WithHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization")
+                .WithExposedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization").AllowCredentials()
             );
             
             if (env.IsDevelopment())
@@ -74,7 +80,7 @@ namespace KeycloakDemoAPI
 
             app.UseRouting();
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
