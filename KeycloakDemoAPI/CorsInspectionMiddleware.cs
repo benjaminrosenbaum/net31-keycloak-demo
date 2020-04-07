@@ -22,16 +22,7 @@ namespace KeycloakDemoAPI
         // IMyScopedService is injected into Invoke
         public async Task Invoke(HttpContext httpContext)
         {
-            CorsPolicyBuilder builder = new CorsPolicyBuilder().WithOrigins("http://keycloak-demo.ngrok.io",
-                        "https://keycloak-demo.ngrok.io", "http://localhost:5000",
-                        "https://keycloak-demo-ui.ngrok.io", "http://keycloak-demo-ui.ngrok.io",
-                        "https://keycloak-demo-api.ngrok.io", "http://keycloak-demo-api.ngrok.io").AllowAnyMethod()
-                    // options.AllowAnyOrigin().AllowAnyMethod()
-                    .WithHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization")
-                    .WithExposedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization").
-                    AllowCredentials()
-                ;
-            var policy = builder.Build();
+            var policy = CorsHelper.SetupCors().Build();
             var origin = httpContext.Request.Headers[CorsConstants.Origin];
             _logger.LogInformation($"policy origins: {string.Join(",", policy.Origins)}, origin: {origin}, allowed: {policy.IsOriginAllowed(origin)}");
 
