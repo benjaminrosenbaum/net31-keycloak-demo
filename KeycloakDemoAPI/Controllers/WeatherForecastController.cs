@@ -22,11 +22,13 @@ namespace KeycloakDemoAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly string userId;
+        private readonly string userName;
 
         public WeatherForecastController(IHttpContextAccessor httpContextAccessor, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            userId = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "nobody";
+            userId = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "??";
+            userName = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value ?? "nobody";
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace KeycloakDemoAPI.Controllers
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)] + userId
+                    Summary = $" {Summaries[rng.Next(Summaries.Length)]} weather for {userId}({userId})"
                 })
                 .ToArray();
         }
