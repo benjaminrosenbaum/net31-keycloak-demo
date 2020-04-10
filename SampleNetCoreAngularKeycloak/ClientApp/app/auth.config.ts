@@ -4,7 +4,7 @@ export const authConfig: AuthConfig = {
 
     // Url of the Identity Provider
     // issuer: 'https://keycloak-demo.virtualcorp.ch/auth/realms/condense',
-    issuer: 'http://localhost:8080/auth/realms/condense,'
+    issuer: 'http://localhost:8080/auth/realms/condense',
     
     // URL of the SPA to redirect the user to after login
     redirectUri: window.location.origin,
