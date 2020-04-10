@@ -32,6 +32,11 @@
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data from .NET 3.1 API
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/condense']">
+                        <span class='glyphicon glyphicon-th-list'></span> Fetch user from local Condense
+                    </a>
+                </li>
                 <li *ngIf="!givenName">
                     <button class="btn btn-default" (click)="login()">
                         Login

@@ -11,6 +11,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { FetchData31Component } from './components/fetchdata31/fetchdata31.component';
+import { CondenseComponent } from './components/condense/condense.component';
 import { CounterComponent } from './components/counter/counter.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CounterComponent } from './components/counter/counter.component';
         CounterComponent,
         FetchDataComponent,
         FetchData31Component,
+        CondenseComponent,
         HomeComponent
     ],
     imports: [
@@ -33,6 +35,7 @@ import { CounterComponent } from './components/counter/counter.component';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'fetch-data-31', component: FetchData31Component },
+            { path: 'condense', component: CondenseComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

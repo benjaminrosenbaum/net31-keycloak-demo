@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 namespace KeycloakDemoAPI
 {
@@ -52,6 +54,18 @@ namespace KeycloakDemoAPI
                         c.Response.StatusCode = 500;
                         c.Response.ContentType = "text/plain";
                         return c.Response.WriteAsync(isDevelopment ? c.Exception.ToString() : "An error occured during authentication.");
+                    },
+                    OnMessageReceived = c =>
+                    {
+                        var qt = c.Request.Query.TryGetValue("access_token", out var queryToken)
+                            ? queryToken.FirstOrDefault()
+                            : null;
+                        string ht = (c.Request.Headers.TryGetValue("authorization", out var val) &&
+                                     val.Any(v => v.StartsWith("Bearer ")))
+                            ? val.First(v => v.StartsWith("Bearer ")).Split(' ').Last()
+                            : null;
+                        c.Token = qt ?? ht;
+                        return Task.CompletedTask;
                     }
                 };
             });
