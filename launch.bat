@@ -1,6 +1,6 @@
 cd SampleNetCoreAngularKeycloak/
 start dotnet run
-start C:/Users/ben.rosenbaum/tools/ngrok/ngrok.exe http -host-header=rewrite -subdomain keycloak-demo     http://localhost:5000
+start C:/Users/ben.rosenbaum/tools/ngrok/ngrok.exe http -host-header=rewrite -subdomain keycloak-demo     http://localhost:7007
 
 cd ../KeycloakDemoAPI 
 start dotnet run
