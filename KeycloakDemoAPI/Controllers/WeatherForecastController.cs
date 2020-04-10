@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -19,10 +21,12 @@ namespace KeycloakDemoAPI.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly string userId;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IHttpContextAccessor httpContextAccessor, ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            userId = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "nobody";
         }
 
         [HttpGet]
@@ -33,7 +37,7 @@ namespace KeycloakDemoAPI.Controllers
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
+                    Summary = Summaries[rng.Next(Summaries.Length)] + userId
                 })
                 .ToArray();
         }
