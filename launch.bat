@@ -1,6 +1,6 @@
 cd SampleNetCoreAngularKeycloak/
 start dotnet run
-start C:/Users/ben.rosenbaum/tools/ngrok/ngrok.exe http -host-header=rewrite -subdomain keycloak-demo     http://localhost:5000
+start C:/Users/ben.rosenbaum/tools/ngrok/ngrok.exe http -host-header=rewrite -subdomain keycloak-demo     http://localhost:7007
 
 cd ../KeycloakDemoAPI 
 start dotnet run
@@ -19,5 +19,5 @@ REM to open a shell to the reverse proxy docker: docker exec -it reverse_reverse
 
 cd ..
 
- "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --auth-server-whitelist="keycloak-demo.virtualcorp.ch http://keycloak-demo.ngrok.io"
+ "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --auth-server-whitelist="keycloak-demo.virtualcorp.ch" http://keycloak-demo.ngrok.io
 
