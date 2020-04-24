@@ -19,7 +19,7 @@ export class CondenseComponent implements OnInit {
             "Authorization": "Bearer " + this.oauthService.getAccessToken()
         });
 
-        this.http.get('https://localhost:3000/api/v1/users/current',
+        this.http.get('http://localhost:5000/api/v1/users/current',
             { headers: headers })
             .subscribe((result: any) => {
                 this.user = result.json() as CurrentUser;
